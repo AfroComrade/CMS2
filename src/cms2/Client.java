@@ -21,6 +21,11 @@ public class Client
     public String getEmail() {
         return email;
     }
+    
+    public Entry getEntry(int index)
+    {
+        return entries.get(index);
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -60,7 +65,7 @@ public class Client
     @Override
     public String toString()
     {
-        return this.name + this.email + this.address;
+        return "(" + this.name + "," + this.email + "," + this.address + ")";
     }
     
 }
