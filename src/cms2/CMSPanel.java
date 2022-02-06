@@ -11,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 
 
 public class CMSPanel extends JPanel
@@ -22,12 +23,18 @@ public class CMSPanel extends JPanel
     private JList entryList;
     private JScrollPane entryListScroll;
     
-    private JTextArea entryText;
+    private JTextPane entryText;
     private JButton newClientButton;
     private JButton newEntryButton;
     
+    private JButton editEntryButton;
+    private JButton saveEntryButton;
+    
     private int[] clientPos;
     private int[] entryPos;
+    
+    
+
     
     public JButton getNewEntryButton()
     {
@@ -39,7 +46,17 @@ public class CMSPanel extends JPanel
         return this.newClientButton;
     }
     
-    public JTextArea getEntryText()
+    public JButton getEditEntryButton()
+    {
+        return this.editEntryButton;
+    }
+    
+    public JButton getSaveEntryButton()
+    {
+        return this.saveEntryButton;
+    }
+    
+    public JTextPane getEntryText()
     {
         return this.entryText;
     }
@@ -86,6 +103,7 @@ public class CMSPanel extends JPanel
         this.newClientButton.setSize(76, 20);
         add(newClientButton);
         this.newClientButton.setEnabled(true);
+        
     }
     
     private void createEntryUI(int[] entryPos)
@@ -107,7 +125,7 @@ public class CMSPanel extends JPanel
 
         this.newEntryButton = new JButton("New");
         this.newEntryButton.setLocation(entryPos[0]+1,entryPos[1]+180);
-        this.newEntryButton.setSize(60, 20);
+        this.newEntryButton.setSize(76, 20);
         add(newEntryButton);
         this.newEntryButton.setEnabled(false);
     }
@@ -119,13 +137,23 @@ public class CMSPanel extends JPanel
         journalTitle.setSize(80,20);
         add(journalTitle);
         
-        this.entryText = new JTextArea("");
+        this.entryText = new JTextPane();
         this.entryText.setLocation(clientPos[0] + 130,clientPos[1] +22);
         this.entryText.setSize(300, 435);
-        this.entryText.setWrapStyleWord(true);
-        this.entryText.setLineWrap(true);
         add(entryText);
-        this.entryText.setEnabled(false);
+        this.entryText.setEnabled(true);
+        this.entryText.setEditable(false);
+        
+        this.editEntryButton = new JButton("Edit");
+        this.editEntryButton.setLocation(clientPos[0] + 370, clientPos[1]);
+        this.editEntryButton.setSize(60,20);
+        add(editEntryButton);
+        this.editEntryButton.setEnabled(false);
+        
+        this.saveEntryButton = new JButton("SAVE");
+        this.editEntryButton.setLocation(clientPos[0] + 370, clientPos[1]);
+        this.editEntryButton.setSize(70,20);
+        
     }
     
     private void createArrowUI(int[] clientPos)

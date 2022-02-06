@@ -25,6 +25,8 @@ public class CMSAppController extends JFrame
     private ClientListModel clientListModel;
     private CMSPanel view;
     
+    private boolean editing = false;
+    
     public CMSAppController(String title)
     {
         super(title);
@@ -51,6 +53,7 @@ public class CMSAppController extends JFrame
         entryListSelectionCheck();
         newClientButton();
         newEntryButton();
+        editEntryButton();
         
         listenWindowClose();
         
@@ -120,7 +123,27 @@ public class CMSAppController extends JFrame
             }
         } catch (FileNotFoundException e) {
             System.out.println("File Load failed");
+            e.printStackTrace();
         }
+    }
+    
+    public void editEntryButton()
+    {
+        this.view.getEditEntryButton().addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (!editing)
+                {
+                    eventHandleEditEntry();   
+                }
+                else
+                {
+                    eventHandleSaveEntry();
+                }
+            }
+        });
     }
     
     public void newClientButton()
@@ -147,6 +170,23 @@ public class CMSAppController extends JFrame
         });
     }
     
+    public void eventHandleEditEntry()
+    {
+        this.view.getEntryText().setEditable(true);
+        this.view.getEditEntryButton().setText("SAVE");
+        editing = true;
+    }
+    
+    public void eventHandleSaveEntry()
+    {
+        String textToSave = view.getEntryText().getText();
+        view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).setText(textToSave);
+        
+        this.view.getEntryText().setEditable(false);
+        this.view.getEditEntryButton().setText("Edit");
+        editing = false;
+    }
+    
     public void eventHandleNewClient()
     {
         ClientPopoutController popout2 = new ClientPopoutController();
@@ -159,13 +199,11 @@ public class CMSAppController extends JFrame
             {
                 if (popout2.isCreated())
                 {
-                    System.out.println(popout2.getClient());
                     clientListModel.addClient(popout2.getClient());
                     view.update();
                 }
             }
         }
-        
         );
     }
     
@@ -215,6 +253,7 @@ public class CMSAppController extends JFrame
         {
             public void valueChanged(ListSelectionEvent e)
             {
+                view.getEditEntryButton().setEnabled(true);
                 if (e.getValueIsAdjusting())
                 {
                     String rawText = view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).getText();
