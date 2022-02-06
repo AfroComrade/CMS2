@@ -1,11 +1,15 @@
 package cms2;
 
+import java.awt.Point;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+
 
 public class CMSPanel extends JPanel
 {
@@ -20,6 +24,8 @@ public class CMSPanel extends JPanel
     private JButton newClientButton;
     private JButton newEntryButton;
     
+    private int[] clientPos;
+    private int[] entryPos;
     
     public JButton getNewEntryButton()
     {
@@ -56,6 +62,75 @@ public class CMSPanel extends JPanel
         return this.entryListScroll;
     }
     
+    private void createClientUI(int[] clientPos)
+    {
+        JLabel clientTitle = new JLabel("Clients:");
+        clientTitle.setLocation(clientPos[0] + 1, clientPos[1]);
+        clientTitle.setSize(60,20);
+        add(clientTitle);
+        
+        this.clientList = new JList(this.clientListModel.toList());
+        
+        this.clientListScroll = new JScrollPane(clientList,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.clientListScroll.setLocation(clientPos[0],clientPos[1]+22);
+        this.clientListScroll.setSize(80, 150);
+        add(clientListScroll);
+        this.clientListScroll.setEnabled(true);
+        
+        this.newClientButton = new JButton("New");
+        this.newClientButton.setLocation(clientPos[0]+1,clientPos[1]+180);
+        this.newClientButton.setSize(76, 20);
+        add(newClientButton);
+        this.newClientButton.setEnabled(true);
+    }
+    
+    private void createEntryUI(int[] entryPos)
+    {
+        JLabel entryTitle = new JLabel("Entries:");
+        entryTitle.setLocation(entryPos[0]+1, entryPos[1]);
+        entryTitle.setSize(60,20);
+        add(entryTitle);
+        
+        this.entryList = new JList();
+        
+        this.entryListScroll = new JScrollPane(entryList,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.entryListScroll.setLocation(entryPos[0],entryPos[1]+22);
+        this.entryListScroll.setSize(80, 150);
+        add(entryListScroll);
+        this.entryListScroll.setEnabled(false);
+
+        this.newEntryButton = new JButton("New");
+        this.newEntryButton.setLocation(entryPos[0]+1,entryPos[1]+180);
+        this.newEntryButton.setSize(60, 20);
+        add(newEntryButton);
+        this.newEntryButton.setEnabled(false);
+    }
+    
+    private void createJournalUI(int[] clientPos)
+    {
+        JLabel journalTitle = new JLabel("Journal Entry:");
+        journalTitle.setLocation(clientPos[0] + 130, clientPos[1]);
+        journalTitle.setSize(80,20);
+        add(journalTitle);
+        
+        this.entryText = new JTextArea("");
+        this.entryText.setLocation(clientPos[0] + 130,clientPos[1] +22);
+        this.entryText.setSize(300, 435);
+        add(entryText);
+        this.entryText.setEnabled(true);
+    }
+    
+    private void createArrowUI(int[] clientPos)
+    {
+        JLabel arrow = new JLabel ("V");
+        arrow.setLocation(clientPos[0]+35, clientPos[1]+220);
+        arrow.setSize(20,20);
+        add(arrow);
+    }
     
     public CMSPanel(ClientListModel clientListModel)
     {
@@ -64,45 +139,14 @@ public class CMSPanel extends JPanel
         this.clientListModel = clientListModel;
         setLayout(null);
         
-        this.clientList = new JList(this.clientListModel.toList());
+        this.clientPos = new int[]{15, 10};
+        createClientUI(clientPos);
         
-        this.clientListScroll = new JScrollPane(clientList,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.clientListScroll.setLocation(10,30);
-        this.clientListScroll.setSize(80, 150);
-        add(clientListScroll);
-        this.clientListScroll.setEnabled(true);
+        this.entryPos = new int[]{clientPos[0], clientPos[1] + 260};
+        createEntryUI(entryPos);
         
-        
-        this.entryList = new JList();
-        
-        this.entryListScroll = new JScrollPane(entryList,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.entryListScroll.setLocation(100,30);
-        this.entryListScroll.setSize(80, 150);
-        add(entryListScroll);
-        this.entryListScroll.setEnabled(false);
-        
-        this.entryText = new JTextArea("");
-        this.entryText.setLocation(190,30);
-        this.entryText.setSize(150, 150);
-        add(entryText);
-        this.entryText.setEnabled(true);
-        
-        
-        this.newClientButton = new JButton("New");
-        this.newClientButton.setLocation(10,190);
-        this.newClientButton.setSize(60, 20);
-        add(newClientButton);
-        this.newClientButton.setEnabled(true);
-        
-        this.newEntryButton = new JButton("New");
-        this.newEntryButton.setLocation(100,190);
-        this.newEntryButton.setSize(60, 20);
-        add(newEntryButton);
-        this.newEntryButton.setEnabled(false);
+        createArrowUI(clientPos);
+        createJournalUI(clientPos);
     }
     
     public void update()

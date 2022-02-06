@@ -6,19 +6,21 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import javax.swing.JTextArea;
+
 public class EntryPopoutView extends JPanel
 {
     private JLabel textLabel;
     private JLabel dateLabel;
     
-    private JTextField textEntry;
+    private JTextArea textEntry;
     private JTextField dateEntry;
     
     private JButton done;
     private JButton cancel;
     
     
-    public JTextField getTextField()
+    public JTextArea getTextField()
     {
         return this.textEntry;
     }
@@ -61,23 +63,25 @@ public class EntryPopoutView extends JPanel
         add(this.textLabel);
         this.textLabel.setEnabled(true);
         
-        this.textEntry = new JTextField("");
+        this.textEntry = new JTextArea("");
         this.textEntry.setLocation(80, 40);
-        this.textEntry.setSize(100, 20);
+        this.textEntry.setSize(200, 300);
         add(this.textEntry);
         this.textEntry.setEnabled(true);
         
+        this.cancel = new JButton("Cancel");
+        this.cancel.setLocation(80, 360);
+        this.cancel.setSize(80, 20);
+        add(this.cancel);
+        this.cancel.setEnabled(true);
+        
         this.done = new JButton("Done");
-        this.done.setLocation(250, 140);
+        this.done.setLocation(210, 360);
         this.done.setSize(80, 20);
         add(this.done);
         this.done.setEnabled(true);
         
-        this.cancel = new JButton("Cancel");
-        this.cancel.setLocation(120, 140);
-        this.cancel.setSize(80, 20);
-        add(this.cancel);
-        this.cancel.setEnabled(true);
+
         
     }
 }

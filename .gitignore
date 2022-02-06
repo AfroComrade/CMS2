@@ -1,2 +1,27 @@
 
 nbproject/private/private.xml
+nbproject/project.properties
+nbproject/private/private.xml
+nbproject/private/private.properties
+nbproject/genfiles.properties
+nbproject/build-impl.xml
+build/classes/cms2/EntryPopout/EntryPopoutView.class
+build/classes/cms2/EntryPopout/EntryPopoutController.class
+build/classes/cms2/EntryPopout/EntryPopoutController$2.class
+build/classes/cms2/EntryPopout/EntryPopoutController$1.class
+build/classes/cms2/Entry.class
+build/classes/cms2/CMSPanel.class
+build/classes/cms2/CMSAppController.class
+build/classes/cms2/CMSAppController$7.class
+build/classes/cms2/CMSAppController$6.class
+build/classes/cms2/CMSAppController$5.class
+build/classes/cms2/CMSAppController$4.class
+build/classes/cms2/CMSAppController$3.class
+build/classes/cms2/CMSAppController$2.class
+build/classes/cms2/CMSAppController$1.class
+build/classes/cms2/ClientPopout/ClientPopoutView.class
+build/classes/cms2/ClientPopout/ClientPopoutController.class
+build/classes/cms2/ClientPopout/ClientPopoutController$2.class
+build/classes/cms2/ClientPopout/ClientPopoutController$1.class
+build/classes/cms2/ClientListModel.class
+build/classes/cms2/Client.class

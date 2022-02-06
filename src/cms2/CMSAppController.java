@@ -182,7 +182,6 @@ public class CMSAppController extends JFrame
             @Override
             public void windowClosed(WindowEvent e)
             {
-                System.out.println("Detected entry window close");
                 if (popout.isCreated())
                 {
                     System.out.println(popout.getEntry());
@@ -224,14 +223,32 @@ public class CMSAppController extends JFrame
                     String rawText = view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).getText();
                     String formattedText = rawText;
                     
-                    for (int i = 26; i < formattedText.length(); i += 27)
+                    for (int i = 50; i < formattedText.length(); i += 51)
                     {
-                        if (formattedText.charAt(i) == ' ')
+                        boolean reverse = false;
+                        while ((i < formattedText.length()) && (formattedText.charAt(i) != ' '))
                         {
-                            i++;
+                            int icheck = i % 50;
+                            System.out.println("icheck = " + icheck);
+                            if (!reverse && icheck < 5)
+                            {
+                                i++;
+                            }
+                            else if (!reverse && icheck == 5)
+                            {
+                                reverse = true;
+                                i = i-5;
+                            }
+                            else if (reverse)
+                            {
+                                i--;
+                            }
                         }
-
-                        formattedText = formattedText.substring(0, i) + "\n" + formattedText.substring(i);
+                        
+                        if (i < formattedText.length())
+                        {
+                            formattedText = formattedText.substring(0, i) + "\n" + formattedText.substring(i);
+                        }
                     }
                     
                     view.getEntryText().setText(formattedText);
