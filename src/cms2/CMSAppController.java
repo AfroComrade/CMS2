@@ -40,7 +40,6 @@ public class CMSAppController extends JFrame
         File f = new File("savedfileinfo.txt");
         if (f.exists() && !f.isDirectory())
         {
-            System.out.println("We found the file g!");
             eventLoad(f);
         }
         
@@ -108,13 +107,11 @@ public class CMSAppController extends JFrame
                     String secondString = data.substring(data.indexOf(',') + 1);
                     String clientEmail = secondString.substring(0, secondString.indexOf(','));
                     String clientAddress = secondString.substring(secondString.indexOf(',') + 1, secondString.length() - 1);
-                    System.out.println(clientName + " : " + clientEmail + " : " + clientAddress);
                     this.clientListModel.addClient(clientName, clientEmail, clientAddress);
                     lastClient = clientName;
                 }
                 else if ((data.length() >= 8 ) && data.charAt(2) == ('/') && data.charAt(5) == ('/'))
                 {
-                    System.out.println("Found an Entry!");
                     String date = data.substring(0, 8);
                     String text = data.substring(8);
                     this.clientListModel.addEntry(lastClient, text, date);
@@ -222,34 +219,6 @@ public class CMSAppController extends JFrame
                 {
                     String rawText = view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).getText();
                     String formattedText = rawText;
-                    
-                    for (int i = 50; i < formattedText.length(); i += 51)
-                    {
-                        boolean reverse = false;
-                        while ((i < formattedText.length()) && (formattedText.charAt(i) != ' '))
-                        {
-                            int icheck = i % 50;
-                            System.out.println("icheck = " + icheck);
-                            if (!reverse && icheck < 5)
-                            {
-                                i++;
-                            }
-                            else if (!reverse && icheck == 5)
-                            {
-                                reverse = true;
-                                i = i-5;
-                            }
-                            else if (reverse)
-                            {
-                                i--;
-                            }
-                        }
-                        
-                        if (i < formattedText.length())
-                        {
-                            formattedText = formattedText.substring(0, i) + "\n" + formattedText.substring(i);
-                        }
-                    }
                     
                     view.getEntryText().setText(formattedText);
                 }

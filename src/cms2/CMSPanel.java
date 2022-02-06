@@ -1,6 +1,8 @@
 package cms2;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.TextArea;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
@@ -120,8 +122,10 @@ public class CMSPanel extends JPanel
         this.entryText = new JTextArea("");
         this.entryText.setLocation(clientPos[0] + 130,clientPos[1] +22);
         this.entryText.setSize(300, 435);
+        this.entryText.setWrapStyleWord(true);
+        this.entryText.setLineWrap(true);
         add(entryText);
-        this.entryText.setEnabled(true);
+        this.entryText.setEnabled(false);
     }
     
     private void createArrowUI(int[] clientPos)

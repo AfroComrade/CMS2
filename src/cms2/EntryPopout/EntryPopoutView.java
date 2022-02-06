@@ -66,6 +66,8 @@ public class EntryPopoutView extends JPanel
         this.textEntry = new JTextArea("");
         this.textEntry.setLocation(80, 40);
         this.textEntry.setSize(200, 300);
+        this.textEntry.setWrapStyleWord(true);
+        this.textEntry.setLineWrap(true);
         add(this.textEntry);
         this.textEntry.setEnabled(true);
         
