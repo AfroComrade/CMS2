@@ -1,5 +1,4 @@
 package cms2;
-package cms2.ClientPopout;
 
 import cms2.ClientPopout.ClientPopoutController;
 import cms2.EntryPopout.EntryPopoutController;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+
 
 public class CMSAppController extends JFrame
 {
@@ -55,6 +55,8 @@ public class CMSAppController extends JFrame
         newEntryButton();
         editEntryButton();
         
+
+        
         listenWindowClose();
         
         view.update();
@@ -85,7 +87,21 @@ public class CMSAppController extends JFrame
                 for (int j = 0; j < writeClient.getEntries().size(); j++)
                 {
                     Entry writeEntry = writeClient.getEntry(j);
-                    file.write(writeEntry.getDateTime() + writeEntry.getText() + System.lineSeparator());
+                    
+                    String writeString = writeEntry.getText();
+                    String newString = "";
+                    for (i = 0; i < writeString.length(); i++)
+                    {
+                        if (writeString.charAt(i) == '\n')
+                        {
+                            newString = newString.concat("\\n");
+                        }
+                        else
+                        {
+                            newString = newString.concat(writeString.substring(i, i+1));
+                        }
+                    }
+                    file.write(writeEntry.getDateTime() + newString + System.lineSeparator());
                 }
                 file.write("\nEOC" + System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
             }
@@ -113,11 +129,25 @@ public class CMSAppController extends JFrame
                     this.clientListModel.addClient(clientName, clientEmail, clientAddress);
                     lastClient = clientName;
                 }
-                else if ((data.length() >= 8 ) && data.charAt(2) == ('/') && data.charAt(5) == ('/'))
+                else if ((data.length() >= 8 ) && data.charAt(2) == ('-') && data.charAt(5) == ('-'))
                 {
-                    String date = data.substring(0, 8);
-                    String text = data.substring(8);
-                    this.clientListModel.addEntry(lastClient, text, date);
+                    String date = data.substring(0, 10);
+                    String text = data.substring(10);
+                    String newString = "";
+                    
+                    for (int i = 0; i < text.length(); i++)
+                    {
+                        if(i+2 < text.length() && text.substring(i, i+2).equals("\\n"))
+                        {
+                            newString = newString.concat("\n");
+                            i++;
+                        }
+                        else
+                        {
+                            newString = newString.concat(text.substring(i, i+1));
+                        }
+                    }
+                    this.clientListModel.addEntry(lastClient, newString, date);
                     this.clientListModel.getEntries(0);
                 }
             }

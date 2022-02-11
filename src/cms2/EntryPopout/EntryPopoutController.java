@@ -6,8 +6,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Properties;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EntryPopoutController extends JFrame
 {
@@ -43,6 +52,8 @@ public class EntryPopoutController extends JFrame
         doneButtonCheck();
     }
     
+
+    
     public void cancelButtonCheck()
     {
         this.view.getCancel().addActionListener(new ActionListener()
@@ -64,7 +75,7 @@ public class EntryPopoutController extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String date = view.getDateField().getText();
+                String date = view.getDatePickerImpl().getJFormattedTextField().getText();
                 String text = view.getTextField().getText();
                 entry = new Entry(text, date);
                 created = true;
