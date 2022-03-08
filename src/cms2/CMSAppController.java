@@ -16,14 +16,13 @@ import java.awt.event.WindowEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 
 public class CMSAppController extends JFrame
 {
     private ClientListModel clientListModel;
     private CMSPanel view;
+    private final String version = "vers 1.0";
     
     private boolean editing = false;
     
@@ -40,10 +39,10 @@ public class CMSAppController extends JFrame
         clientListModel = new ClientListModel();
         
         File f = new File("savedfileinfo.txt");
-        if (f.exists() && !f.isDirectory())
+        /*if (f.exists() && !f.isDirectory())
         {
             eventLoad(f);
-        }
+        }*/
         
         this.view = new CMSPanel(clientListModel);
         add(view);
@@ -75,18 +74,19 @@ public class CMSAppController extends JFrame
     {
         try {
             FileWriter file = new FileWriter("savedfileinfo.txt");
+            file.write(version + System.lineSeparator());
+            String delimiter = "!@#$";
+            
             for (int i = 0; i < clientListModel.getClients().size(); i++)
             {
                 Client writeClient = clientListModel.getClient(i);
-                file.write("Index: " + i + System.lineSeparator());
-                file.write("Client:" + writeClient.toString()+ System.lineSeparator());
-                file.write("     " + System.lineSeparator());
+                file.write("!" + writeClient.toSave(delimiter) + System.lineSeparator());
                 
-                for (int j = 0; j < writeClient.getEntries().size(); j++)
+                for (int j = 0; j < writeClient.getSessions().size(); j++)
                 {
-                    Entry writeEntry = writeClient.getEntry(j);
+                    Session writeSession = writeClient.getSession(j);
                     
-                    String writeString = writeEntry.getText();
+                    String writeString = writeSession.getText();
                     String newString = "";
                     for (int k = 0; k < writeString.length(); k++)
                     {
@@ -99,9 +99,8 @@ public class CMSAppController extends JFrame
                             newString = newString.concat(writeString.substring(k, k+1));
                         }
                     }
-                    file.write(writeEntry.getDateTime() + newString + System.lineSeparator());
+                    file.write(writeSession.toSave(delimiter) + System.lineSeparator());
                 }
-                file.write("\nEOC" + System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
             }
             file.close();
         } catch (IOException e) {
@@ -111,7 +110,8 @@ public class CMSAppController extends JFrame
         
         //System.out.println("Save successful!");
     }
-
+    
+    /*
     public void eventLoad(File f) // Load all clients an entries from savedfileinfo.txt
     {
         try{
@@ -155,7 +155,7 @@ public class CMSAppController extends JFrame
             System.out.println("File Load failed");
             e.printStackTrace();
         }
-    }
+    }*/
     
     public void editEntryButton()
     {
@@ -210,7 +210,7 @@ public class CMSAppController extends JFrame
     public void eventHandleSaveEntry()
     {
         String textToSave = view.getEntryText().getText();
-        view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).setText(textToSave);
+        view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getSessions().get(view.getEntryList().getSelectedIndex()).setText(textToSave);
         
         this.view.getEntryText().setEditable(false);
         this.view.getEditEntryButton().setText("Edit");
@@ -250,7 +250,7 @@ public class CMSAppController extends JFrame
                 if (popout.isCreated())
                 {
                     System.out.println(popout.getEntry());
-                    view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).addEntry(popout.getEntry());
+                    view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).addSession(popout.getEntry());
                     view.update();
                 }
         }
@@ -286,7 +286,7 @@ public class CMSAppController extends JFrame
                 view.getEditEntryButton().setEnabled(true);
                 if (e.getValueIsAdjusting())
                 {
-                    String rawText = view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getEntries().get(view.getEntryList().getSelectedIndex()).getText();
+                    String rawText = view.getClientListModel().getClient(view.getClientList().getSelectedIndex()).getSessions().get(view.getEntryList().getSelectedIndex()).getText();
                     String formattedText = rawText;
                     
                     view.getEntryText().setText(formattedText);

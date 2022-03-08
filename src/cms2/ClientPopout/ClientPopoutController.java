@@ -30,12 +30,14 @@ public class ClientPopoutController extends JFrame
         super("New Client");
         created = false;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int panelWidth = (int)screenSize.getWidth() / 2;
+        int panelHeight = (int)(screenSize.getHeight() / 2);
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize((int)(screenSize.getWidth() / 3),(int)(screenSize.getHeight() / 3));
+        setSize(panelWidth,panelHeight);
         setResizable(false);
         
-        this.view = new ClientPopoutView();
+        this.view = new ClientPopoutView(panelWidth,panelHeight);
         add(this.view);
         
         cancelButtonCheck();
@@ -64,9 +66,18 @@ public class ClientPopoutController extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 String name = view.getNameField().getText();
-                String address = view.getAddressField().getText();
+                String DOB = view.getDatePicker().getJFormattedTextField().getText();
                 String email = view.getEmailField().getText();
-                client = new Client(name, address, email);
+                String address = view.getAddressField().getText();
+                String phNum = view.getphTextField().getText();
+                String gender = view.getGenderTextField().getText();
+                String cost = view.getCostTextField().getText();
+                String acc = view.getAccTextField().getText();
+                String bio = view.getBioTextField().getText();
+                String issue = view.getIssueTextField().getText();
+                String context = view.getContextField().getText();
+                
+                client = new Client(name, DOB, email, address, phNum, gender, cost, acc, bio, issue, context);
                 created = true;
                 setVisible(false);
                 dispose();

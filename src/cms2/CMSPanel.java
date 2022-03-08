@@ -28,9 +28,6 @@ public class CMSPanel extends JPanel
     private int[] clientPos;
     private int[] entryPos;
     
-    
-
-    
     public JButton getNewEntryButton()
     {
         return this.newEntryButton;
