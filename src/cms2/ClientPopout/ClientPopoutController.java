@@ -32,7 +32,7 @@ public class ClientPopoutController extends JFrame
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize((int)(screenSize.getWidth() / 4),(int)(screenSize.getHeight() / 4));
+        setSize((int)(screenSize.getWidth() / 3),(int)(screenSize.getHeight() / 3));
         setResizable(false);
         
         this.view = new ClientPopoutView();

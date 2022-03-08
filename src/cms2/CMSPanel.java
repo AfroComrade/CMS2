@@ -1,14 +1,9 @@
 package cms2;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.TextArea;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;

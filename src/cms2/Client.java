@@ -7,6 +7,14 @@ public class Client
     private String name;
     private String address;
     private String email;
+    private String DOB;
+    private String Ph;
+    private String Gender;
+    private String SessionCost;
+    private String ACCNumber;
+    private String Bio;
+    private String PresentingIssue;
+    private String Context;
     private ArrayList<Entry> entries;
     // private String internal_id; TO IMPLEMENT
 

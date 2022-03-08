@@ -54,11 +54,8 @@ public class CMSAppController extends JFrame
         newClientButton();
         newEntryButton();
         editEntryButton();
-        
 
-        
         listenWindowClose();
-        
         view.update();
     }
     
@@ -84,21 +81,22 @@ public class CMSAppController extends JFrame
                 file.write("Index: " + i + System.lineSeparator());
                 file.write("Client:" + writeClient.toString()+ System.lineSeparator());
                 file.write("     " + System.lineSeparator());
+                
                 for (int j = 0; j < writeClient.getEntries().size(); j++)
                 {
                     Entry writeEntry = writeClient.getEntry(j);
                     
                     String writeString = writeEntry.getText();
                     String newString = "";
-                    for (i = 0; i < writeString.length(); i++)
+                    for (int k = 0; k < writeString.length(); k++)
                     {
-                        if (writeString.charAt(i) == '\n')
+                        if (writeString.charAt(k) == '\n')
                         {
                             newString = newString.concat("\\n");
                         }
                         else
                         {
-                            newString = newString.concat(writeString.substring(i, i+1));
+                            newString = newString.concat(writeString.substring(k, k+1));
                         }
                     }
                     file.write(writeEntry.getDateTime() + newString + System.lineSeparator());
@@ -110,6 +108,8 @@ public class CMSAppController extends JFrame
             System.out.println("File writing error occurred");
             e.printStackTrace();
         }
+        
+        //System.out.println("Save successful!");
     }
 
     public void eventLoad(File f) // Load all clients an entries from savedfileinfo.txt

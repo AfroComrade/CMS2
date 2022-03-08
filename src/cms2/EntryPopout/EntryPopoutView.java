@@ -24,7 +24,6 @@ public class EntryPopoutView extends JPanel
     private JLabel dateLabel;
     
     private JTextArea textEntry;
-    private JTextField dateEntry;
     
     private JButton done;
     private JButton cancel;
@@ -41,11 +40,6 @@ public class EntryPopoutView extends JPanel
     public JTextArea getTextField()
     {
         return this.textEntry;
-    }
-    
-    public JTextField getDateField()
-    {
-        return this.dateEntry;
     }
     
     public JButton getDone()
@@ -68,13 +62,6 @@ public class EntryPopoutView extends JPanel
         this.dateLabel.setSize(60, 10);
         add(this.dateLabel);
         this.dateLabel.setEnabled(true);
-        
-        /*
-        this.dateEntry = new JTextField("");
-        this.dateEntry.setLocation(80, 10);
-        this.dateEntry.setSize(100, 20);
-        add(this.dateEntry);
-        this.dateEntry.setEnabled(true);*/
         
         this.textLabel = new JLabel("Entry:", SwingConstants.RIGHT);
         this.textLabel.setLocation(15, 45);
